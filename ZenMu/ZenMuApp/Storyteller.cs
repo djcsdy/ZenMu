@@ -8,7 +8,12 @@ namespace ZenMu.ZenMuApp
 {
 	public static class Storyteller
 	{
-		private static List<ZenMuSession> _games = new List<ZenMuSession>();
+		private static List<GameSession> _games = new List<GameSession>();
+
+		public static void CreateGame(string name, string password, string storytellerKey)
+		{
+			var newGame = new GameSession(name, password, storytellerKey);
+		}
 
 		public static void StartServer()
 		{
@@ -19,9 +24,9 @@ namespace ZenMu.ZenMuApp
 			             		            	{
 			             		            		if (_games.Count == 0)
 			             		            		{
-			             		            			_games.Add(new ZenMuSession());
+			             		            			_games.Add(new GameSession());
 			             		            		}
-			             		            		_games.First().AddPlayer(new ZenMuPlayer(ws));
+			             		            		_games.First().AddPlayer(new Player(ws));
 			             		            	};
 
 			             	});

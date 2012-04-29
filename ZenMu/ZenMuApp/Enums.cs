@@ -11,4 +11,11 @@ namespace ZenMu.ZenMuApp
 		Emote,
 		Command
 	}
+
+	enum CommandType
+	{
+		ChangeName,
+		AddName,
+
+	}
 }

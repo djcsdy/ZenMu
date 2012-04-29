@@ -5,8 +5,8 @@ using System.Web;
 
 namespace ZenMu.ZenMuApp
 {
-	public struct Message
+	public struct ZenMuMessage
 	{
-		private MessageType messageType { get; set; }
+		public MessageType MessageType { get; set; }
 	}
 }

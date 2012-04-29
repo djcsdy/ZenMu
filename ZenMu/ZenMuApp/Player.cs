@@ -6,19 +6,22 @@ using Fleck;
 
 namespace ZenMu.ZenMuApp
 {
-	public class ZenMuPlayer
+	public class Player
 	{
 		private IWebSocketConnection _socket;
-		private ZenMuSession _game;
+		private GameSession _game;
 
-		public ZenMuPlayer(IWebSocketConnection socket)
+		public List<string> AuthorizedNames; 
+
+		public Player(IWebSocketConnection socket)
 		{
 			_socket = socket;
 			_socket.OnMessage = message => MessageRecieved(this, message);
-			//_socket.OnClose = 
+			_socket.OnClose += LeaveGame;
+
 		}
 
-		public void JoinGame(ZenMuSession game)
+		public void JoinGame(GameSession game)
 		{
 			_game = game;
 		}
@@ -34,7 +37,6 @@ namespace ZenMu.ZenMuApp
 			_game = null;
 		}
 		
-		public event Action<ZenMuPlayer, String> MessageRecieved;
-		
+		public event Action<Player, String> MessageRecieved;
 	}
 }
