@@ -1,0 +1,29 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+<script type="text/javascript">
+
+    var openConnection = function () {
+        console.log('opening connection');
+        wsocket = new WebSocket('ws://localhost:25948');
+        wsocket.onmessage = function (event) {
+            console.log(event);
+            $('#output').append(event.data + '<br />');
+        };
+        console.log('opened connection');
+    }
+
+
+
+    $(document).ready(function () {
+        openConnection();
+        $('#submit').on('click', function () {
+            wsocket.send($('#message').val());
+        });
+    });
+
+</script>
+
+<h2>Index</h2>
+<input id="message" type="text"/><button id="submit">Send</button>
+<div id="output"></div>
