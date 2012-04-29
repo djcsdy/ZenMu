@@ -11,6 +11,17 @@ namespace ZenMu.ZenMuApp
 		private IWebSocketConnection _socket;
 		private GameSession _game;
 
+		private string _characterName;
+		public string CharacterName
+		{
+			get { return _characterName; }
+			set 
+			{ 
+				_characterName = value;
+				NameChanged(this, value);
+			}
+		}
+
 		public List<string> AuthorizedNames; 
 
 		public Player(IWebSocketConnection socket)
@@ -36,7 +47,8 @@ namespace ZenMu.ZenMuApp
 			_game.RemovePlayer(this);
 			_game = null;
 		}
-		
+
+		public event Action<Player, string> NameChanged;
 		public event Action<Player, String> MessageRecieved;
 	}
 }
