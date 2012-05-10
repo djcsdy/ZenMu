@@ -26,7 +26,7 @@ namespace ZenMu.ZenMuApp
 			             		            		{
 			             		            			_games.Add(new GameSession());
 			             		            		}
-			             		            		_games.First().AddPlayer(new Player(ws));
+			             		            		_games.First().AddPlayer(new Player(ws), ws.ConnectionInfo.Cookies.First().ToString());
 			             		            	};
 
 			             	});

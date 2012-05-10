@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Fleck;
+using Raven.Client.Document;
+using Raven.Client.Indexes;
 using ZenMu.ZenMuApp;
 
 namespace ZenMu
@@ -16,6 +19,8 @@ namespace ZenMu
 
 	public class MvcApplication : System.Web.HttpApplication
 	{
+		public static DocumentStore Store;
+
 		public static void RegisterGlobalFilters(GlobalFilterCollection filters)
 		{
 			filters.Add(new HandleErrorAttribute());
@@ -42,19 +47,10 @@ namespace ZenMu
 
 			Storyteller.StartServer();
 
-			/*
-			Application.Add("connections", new List<IWebSocketConnection>());
-			var server = new WebSocketServer("ws://localhost:25948");
-			server.Start(ws =>
-			             	{
-			             		ws.OnOpen = () =>
-			             		            	{
-			             		            		((List<IWebSocketConnection>) Application["connections"]).Add(ws);
-			             		            		ws.Send((((List<IWebSocketConnection>) Application["connections"]).IndexOf(ws).ToString() + " connected at " + DateTime.Now.ToString()));
-			             		            	};
-								ws.OnMessage = message => ((List<IWebSocketConnection>)Application["connections"]).ForEach(s => s.Send((((List<IWebSocketConnection>)Application["connections"]).IndexOf(ws)).ToString() + " said: " + Server.HtmlEncode(message)));
-							}
-				);*/
+			Store = new DocumentStore {ConnectionStringName = "RavenDB"};
+			Store.Initialize();
+
+			IndexCreation.CreateIndexes(Assembly.GetCallingAssembly(), Store);
 		}
 	}
 }

@@ -10,8 +10,9 @@ namespace ZenMu.ZenMuApp
 	{
 		private IWebSocketConnection _socket;
 		private GameSession _game;
-
 		private string _characterName;
+		public bool IsStoryteller { get; private set; }
+
 		public string CharacterName
 		{
 			get { return _characterName; }
@@ -21,8 +22,6 @@ namespace ZenMu.ZenMuApp
 				NameChanged(this, value);
 			}
 		}
-
-		public List<string> AuthorizedNames; 
 
 		public Player(IWebSocketConnection socket)
 		{

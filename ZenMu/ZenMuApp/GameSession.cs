@@ -9,8 +9,10 @@ namespace ZenMu.ZenMuApp
 	public class GameSession
 	{
 		private List<Player> _participants;
+		private List<Scene> _scenes;
 		public string Password { private get; set; }
 		public string StorytellerKey { private get; set; }
+		public string GameKey { get; private set; }
 
 		public string Name { get; set; }
 
@@ -22,6 +24,7 @@ namespace ZenMu.ZenMuApp
 		public GameSession(string name, string password, string storytellerKey)
 		{
 			_participants = new List<Player>();
+			_scenes = new List<Scene>(){new Scene("Default")};
 			Name = name;
 			Password = password;
 			StorytellerKey = storytellerKey;
@@ -33,6 +36,7 @@ namespace ZenMu.ZenMuApp
 			{
 				_participants.Add(player);
 				player.MessageRecieved += OnMessageRecieved;
+				player.NameChanged += OnNameChanged;
 				return true;
 			}
 			return false;
@@ -48,19 +52,13 @@ namespace ZenMu.ZenMuApp
 			_participants.ForEach(p => p.Send(ProcessMessage(player, message)));
 		}
 
+		private void OnNameChanged(Player player, string newName)
+		{
+			
+		}
+
 		private string ProcessMessage(Player player, string input)
 		{
-			var message = JsonConvert.DeserializeObject<ZenMuMessage>(input);
-			string output;
-			switch (message.MessageType)
-			{
-				case MessageType.Message:
-				case MessageType.Emote:
-					if(player.)
-					break;
-				case MessageType.Command:
-					break;
-			}
 			return input;
 		}
 	}
