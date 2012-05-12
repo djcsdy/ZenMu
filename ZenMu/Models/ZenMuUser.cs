@@ -5,7 +5,7 @@ using System.Web;
 
 namespace ZenMu.Models
 {
-	public class User
+	public class ZenMuUser
 	{
 		public string Name { get; set; }
 		public string Password { get; set; }
