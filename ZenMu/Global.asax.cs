@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-using Fleck;
+using System.Web.Security;
 using Raven.Client.Document;
 using Raven.Client.Indexes;
+using ZenMu.Auth;
+using ZenMu.Models;
+using ZenMu.Utilities;
 using ZenMu.ZenMuApp;
 
 namespace ZenMu
@@ -51,6 +53,33 @@ namespace ZenMu
 			Store.Initialize();
 
 			IndexCreation.CreateIndexes(Assembly.GetCallingAssembly(), Store);
+            using(var s = Store.OpenSession())
+		    {
+		        if (!s.Query<ZenMuUser>().Any())
+		        {
+		            var adminUser = new ZenMuUser()
+		                                {
+		                                    Username = "Administrator",
+		                                    Password = BCrypt.HashPassword("ChangeMe", BCrypt.GenerateSalt())
+		                                };
+                    s.Store(adminUser);
+                    s.SaveChanges();
+		        }
+		    }
 		}
+
+        protected void Application_AuthenticateRequest(object sender, EventArgs e)
+        {
+            HttpCookie authCookie = Request.Cookies[FormsAuthentication.FormsCookieName];
+            
+            if (authCookie == null) return;
+            
+            FormsAuthenticationTicket authTicket = FormsAuthentication.Decrypt(authCookie.Value);
+
+            var identity = new ZenMuIdentity(authTicket.Name);
+            var principal = new ZenMuPrincipal(identity);
+            Context.User = principal;
+            Thread.CurrentPrincipal = principal;
+        }
 	}
 }
