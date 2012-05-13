@@ -12,10 +12,12 @@ namespace ZenMu.Models
         
         [Required(ErrorMessage = "This field is required.")]
         [Compare("RepeatPassword", ErrorMessage = "Passwords do not match.")]
+        [StringLength(100, MinimumLength = 12, ErrorMessage = "Passwords must be at least 12 characters long")]
         public string Password { get; set; }
         
         [Display(Name = "Repeat Password")]
         [Required(ErrorMessage = "This field is required.")]
+        [StringLength(100, MinimumLength = 12, ErrorMessage = "Passwords must be at least 12 characters long")]
         public string RepeatPassword { get; set; }
 
         public string Email { get; set; }
