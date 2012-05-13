@@ -41,15 +41,18 @@ namespace ZenMu.Controllers
 		    return View();
 		}
 
-		public ActionResult Register(string username, string password)
+		public ActionResult Register(UserViewModel user)
 		{
-		    var user = new ZenMuUser
-		                   {
-		                       Username = username, 
-                               Password = BCrypt.HashPassword(password, BCrypt.GenerateSalt())
-		                   };
-		    RavenSession.Store(user);
-            RavenSession.SaveChanges();
+            if (ModelState.IsValid)
+            {
+                var newUser = new ZenMuUser
+                                  {
+                                      Username = user.Username,
+                                      Password = BCrypt.HashPassword(user.Password, BCrypt.GenerateSalt())
+                                  };
+                RavenSession.Store(newUser);
+                RavenSession.SaveChanges();
+            }
 
 		    return RedirectToAction("Index", "Home");
 		}

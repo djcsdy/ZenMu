@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using Fleck;
 
 namespace ZenMu.ZenMuApp
@@ -13,6 +11,7 @@ namespace ZenMu.ZenMuApp
 		public static void CreateGame(string name, string password, string storytellerKey)
 		{
 			var newGame = new GameSession(name, password, storytellerKey);
+            _games.Add(newGame);
 		}
 
 		public static void StartServer()
