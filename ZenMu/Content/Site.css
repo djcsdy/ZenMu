@@ -3,7 +3,7 @@ body
     font-size: .85em;
     font-family: "Trebuchet MS", Verdana, Helvetica, Sans-Serif;
     color: #232323;
-    background-color: #fff;
+    background-color: #fefefe;
 }
 
 header,
@@ -44,6 +44,16 @@ textarea
     margin:0.5em 0 0 0;
 }
 
+input {
+    outline: none;
+    padding: 5px;
+    transition: all 0.25s ease-in-out;
+}
+
+input:focus{
+    box-shadow: 0 0 5px rgba(50, 50, 255, 1);
+}
+
 
 /* Styles for validation helpers
 -----------------------------------------------------------*/
@@ -72,4 +82,14 @@ textarea
 .validation-summary-valid
 {
     display: none;
+}
+
+/* Styles for layout
+--------------------------------------------------------*/
+#container {
+    margin: 20px;
+}
+
+#registration-fieldset {
+    width: 360px;
 }

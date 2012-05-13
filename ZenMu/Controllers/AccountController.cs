@@ -17,6 +17,7 @@ namespace ZenMu.Controllers
 
         public ActionResult Index()
         {
+            ViewBag.Users = RavenSession.Query<ZenMuUser>();
             return View();
         }
 
@@ -41,18 +42,27 @@ namespace ZenMu.Controllers
 		    return View();
 		}
 
+        [HttpGet]
+        public ActionResult Register()
+        {
+            return View();
+        }
+
+        [HttpPost]
 		public ActionResult Register(UserViewModel user)
 		{
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                var newUser = new ZenMuUser
-                                  {
-                                      Username = user.Username,
-                                      Password = BCrypt.HashPassword(user.Password, BCrypt.GenerateSalt())
-                                  };
-                RavenSession.Store(newUser);
-                RavenSession.SaveChanges();
+                return View(user);
             }
+
+            var newUser = new ZenMuUser
+                                {
+                                    Username = user.Username,
+                                    Password = BCrypt.HashPassword(user.Password, BCrypt.GenerateSalt())
+                                };
+            RavenSession.Store(newUser);
+            RavenSession.SaveChanges();
 
 		    return RedirectToAction("Index", "Home");
 		}
