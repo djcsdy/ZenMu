@@ -17,8 +17,10 @@ namespace ZenMu.Models
         [Required(ErrorMessage = "This field is required.")]
         [Compare("RepeatPassword", ErrorMessage = "Passwords do not match.")]
         public string Password { get; set; }
+        
         [Required(ErrorMessage = "This field is required.")]
         public string RepeatPassword { get; set; }
+
         public string Email { get; set; }
         public string[] Roles { get; private set; }
         public bool IsDeleted { get; private set; }
