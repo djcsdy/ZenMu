@@ -18,8 +18,6 @@
     <Link Source="jQuery.UI.Combined 1.8.19" Target="jQuery 1.7.2" Category="Package Dependency" />
     <Link Source="jQuery.Validation 1.8.1" Target="jQuery 1.7.2" Category="Package Dependency" />
     <Link Source="jQuery.vsdoc 1.6" Target="jQuery 1.7.2" Category="Package Dependency" />
-    <Link Source="RavenDB 1.0.910-Unstable" Target="Newtonsoft.Json 4.5.4" Category="Package Dependency" />
-    <Link Source="ZenMu" Target="EntityFramework 4.1.10331.0" Category="Installed Package" />
     <Link Source="ZenMu" Target="Fleck 0.9.5.10" Category="Installed Package" />
     <Link Source="ZenMu" Target="jQuery.UI.Combined 1.8.19" Category="Installed Package" />
     <Link Source="ZenMu" Target="jQuery.Validation 1.8.1" Category="Installed Package" />
