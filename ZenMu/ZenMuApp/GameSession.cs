@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Web;
+using Newtonsoft.Json;
 
 namespace ZenMu.ZenMuApp
 {
@@ -6,9 +9,7 @@ namespace ZenMu.ZenMuApp
 	{
 		private List<Player> _participants;
 		private List<Scene> _scenes;
-		public string Password { private get; set; }
-		public string StorytellerKey { private get; set; }
-		public string GameKey { get; private set; }
+        public Game Game { get; set; }
 
 		public string Name { get; set; }
 
@@ -17,18 +18,16 @@ namespace ZenMu.ZenMuApp
 			_participants = new List<Player>();
 		}
 
-		public GameSession(string name, string password, string storytellerKey)
+		public GameSession(Game game)
 		{
 			_participants = new List<Player>();
 			_scenes = new List<Scene>(){new Scene("Default")};
-			Name = name;
-			Password = password;
-			StorytellerKey = storytellerKey;
+		    Game = game;
 		}
 
-		public bool AddPlayer(Player player, string password)
+		public bool AddPlayer(Player player)
 		{
-			if (password == Password)
+			if (Game.Players.Contains(HttpContext.Current.User.Identity.Name))
 			{
 				_participants.Add(player);
 				player.MessageRecieved += OnMessageRecieved;
@@ -55,6 +54,12 @@ namespace ZenMu.ZenMuApp
 
 		private string ProcessMessage(Player player, string input)
 		{
+		    var message = JsonConvert.DeserializeObject<Message>(input);
+            using (var db = MvcApplication.Store.OpenSession())
+            {
+                db.Store(message);
+                db.SaveChanges();
+            }
 			return input;
 		}
 	}

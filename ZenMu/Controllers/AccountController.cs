@@ -49,7 +49,7 @@ namespace ZenMu.Controllers
         }
 
         [HttpPost]
-		public ActionResult Register(UserViewModel user)
+		public ActionResult Register(NewUserViewModel user)
 		{
             if (!ModelState.IsValid)
             {

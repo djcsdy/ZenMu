@@ -1,0 +1,10 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@foreach (var u in (ViewBag.Users as IEnumerable<ZenMu.Models.ZenMuUser>))
+{
+    @u.Username <br/>
+}

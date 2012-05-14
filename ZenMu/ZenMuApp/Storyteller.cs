@@ -8,10 +8,13 @@ namespace ZenMu.ZenMuApp
 	{
 		private static List<GameSession> _games = new List<GameSession>();
 
-		public static void CreateGame(string name, string password, string storytellerKey)
+		public static void CreateGame(string gameName)
 		{
-			var newGame = new GameSession(name, password, storytellerKey);
-            _games.Add(newGame);
+            using (var db = MvcApplication.Store.OpenSession())
+            {
+                var newGame = new GameSession(db.Query<Game>().Single(g => g.Name == gameName));
+                _games.Add(newGame);
+            }
 		}
 
 		public static void StartServer()
@@ -25,7 +28,7 @@ namespace ZenMu.ZenMuApp
 			             		            		{
 			             		            			_games.Add(new GameSession());
 			             		            		}
-			             		            		_games.First().AddPlayer(new Player(ws), ws.ConnectionInfo.Cookies.First().ToString());
+			             		            		_games.First().AddPlayer(new Player(ws));
 			             		            	};
 
 			             	});
