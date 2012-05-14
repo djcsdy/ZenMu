@@ -15,6 +15,9 @@ namespace ZenMu.ZenMuApp
         NameChange, 
         NewScene,
         RemoveScene,
+        DiceRoll,
+        DamageDiceRoll,
+        TargetDiceRoll,
         ErrorMessage
 	}
 }

@@ -22,6 +22,7 @@ namespace ZenMu
 	public class MvcApplication : System.Web.HttpApplication
 	{
 		public static DocumentStore Store;
+	    public static Storyteller GameServer;
 
 		public static void RegisterGlobalFilters(GlobalFilterCollection filters)
 		{
@@ -47,26 +48,42 @@ namespace ZenMu
 			RegisterGlobalFilters(GlobalFilters.Filters);
 			RegisterRoutes(RouteTable.Routes);
 
-			Storyteller.StartServer();
+		    GameServer = new Storyteller();
+            GameServer.StartServer();
 
 			Store = new DocumentStore {ConnectionStringName = "RavenDB"};
 			Store.Initialize();
+            SetUpInitialUsers();
 
 			IndexCreation.CreateIndexes(Assembly.GetCallingAssembly(), Store);
+            
+		}
+
+        private static void SetUpInitialUsers()
+        {
             using(var s = Store.OpenSession())
 		    {
 		        if (!s.Query<ZenMuUser>().Any())
 		        {
-		            var adminUser = new ZenMuUser()
+		            var adminUser = new ZenMuUser
 		                                {
+                                            Id = new Guid(),
 		                                    Username = "Administrator",
-		                                    Password = BCrypt.HashPassword("ChangeMe", BCrypt.GenerateSalt())
+		                                    Password = BCrypt.HashPassword("ChangeMe", BCrypt.GenerateSalt()),
+                                            Roles = new [] { "Administrator" }
 		                                };
+		            var systemUser = new ZenMuUser
+		                                 {
+		                                     Id = new Guid(),
+		                                     Username = "System",
+		                                     Password = BCrypt.HashPassword(new Guid().ToString(), BCrypt.GenerateSalt())
+		                                 };
                     s.Store(adminUser);
+                    s.Store(systemUser);
                     s.SaveChanges();
 		        }
 		    }
-		}
+        }
 
         protected void Application_AuthenticateRequest(object sender, EventArgs e)
         {

@@ -34,7 +34,7 @@ namespace ZenMu.Controllers
                 var authTicket = new FormsAuthenticationTicket(1, username, DateTime.Now, DateTime.Now.AddDays(1), persistant, "");
                 string encrypedTicket = FormsAuthentication.Encrypt(authTicket);
                 
-                HttpCookie authCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encrypedTicket);
+                var authCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encrypedTicket);
                 Response.Cookies.Add(authCookie);
                 
                 return new RedirectResult(FormsAuthentication.GetRedirectUrl(username, false));
@@ -58,8 +58,10 @@ namespace ZenMu.Controllers
 
             var newUser = new ZenMuUser
                                 {
+                                    Id = new Guid(),
                                     Username = user.Username,
-                                    Password = BCrypt.HashPassword(user.Password, BCrypt.GenerateSalt())
+                                    Password = BCrypt.HashPassword(user.Password, BCrypt.GenerateSalt()),
+                                    Roles = new [] { "User" }
                                 };
             RavenSession.Store(newUser);
             RavenSession.SaveChanges();

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security.Principal;
 using Fleck;
 
 namespace ZenMu.ZenMuApp
@@ -9,6 +10,7 @@ namespace ZenMu.ZenMuApp
 		private GameSession _game;
 		private string _characterName;
 		public bool IsStoryteller { get; private set; }
+        public IPrincipal Identity { get; private set; }
 
 		public string CharacterName
 		{
@@ -20,8 +22,9 @@ namespace ZenMu.ZenMuApp
 			}
 		}
 
-		public Player(IWebSocketConnection socket)
+		public Player(IWebSocketConnection socket, IPrincipal principal)
 		{
+		    Identity = principal;
 			_socket = socket;
 			_socket.OnMessage = message => MessageRecieved(this, message);
 			_socket.OnClose += LeaveGame;
