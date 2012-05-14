@@ -103,10 +103,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\BCrypt.cs" />
     <Compile Include="Validations\UsernameAvailable.cs" />
-    <Compile Include="ZenMuApp\MessageType.cs" />
+    <Compile Include="ZenMuApp\Messages\MessageType.cs" />
     <Compile Include="ZenMuApp\Game.cs" />
-    <Compile Include="ZenMuApp\Message.cs" />
-    <Compile Include="ZenMuApp\MessageFactory.cs" />
+    <Compile Include="ZenMuApp\Messages\Message.cs" />
+    <Compile Include="ZenMuApp\Messages\MessageFactory.cs" />
     <Compile Include="ZenMuApp\Scene.cs" />
     <Compile Include="ZenMuApp\Storyteller.cs" />
     <Compile Include="ZenMuApp\Player.cs" />
