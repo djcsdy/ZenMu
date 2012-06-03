@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Linq;
 using System.Security.Principal;
 using Fleck;
+using ZenMu.Models;
 
 namespace ZenMu.ZenMuApp
 {
@@ -11,6 +13,14 @@ namespace ZenMu.ZenMuApp
 		private string _characterName;
 		public bool IsStoryteller { get; private set; }
         public IPrincipal Identity { get; private set; }
+
+        public Guid GetId()
+        {
+            using (var db = MvcApplication.Store.OpenSession())
+            {
+                return db.Query<ZenMuUser>().Single(u => u.Username == Identity.Identity.Name).Id;
+            }
+        }
 
 		public string CharacterName
 		{

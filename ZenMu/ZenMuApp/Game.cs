@@ -10,7 +10,8 @@ namespace ZenMu.ZenMuApp
     public class Game
     {
         public string Name;
+        public Guid Id;
         public string Storyteller { get; set; }
-        public List<string> Players { get; set; }
+        public List<Guid> Players { get; set; }
     }
 }

@@ -11,11 +11,11 @@ namespace ZenMu.ZenMuApp
 	{
 		private List<GameSession> _games = new List<GameSession>();
 
-		public void CreateGame(string gameName)
+		public void CreateGame(Guid gameId)
 		{
             using (var db = MvcApplication.Store.OpenSession())
             {
-                var newGame = new GameSession(db.Query<Game>().Single(g => g.Name == gameName));
+                var newGame = new GameSession(db.Query<Game>().Single(g => g.Id == gameId));
                 _games.Add(newGame);
             }
 		}
@@ -41,7 +41,15 @@ namespace ZenMu.ZenMuApp
                 return;
             }
 
-            
+            Guid gameGuid;
+
+            if (Guid.TryParse(socket.ConnectionInfo.Path.Replace("", String.Empty), out gameGuid))
+            {
+                if (_games.Any(g => g.Id == gameGuid))
+                {
+                    _games.Single(g => g.Id == gameGuid).AddPlayer(player);
+                }
+            }
         }
 
         private bool TryCreatePlayer(string authCookie, IWebSocketConnection socket, out Player result)

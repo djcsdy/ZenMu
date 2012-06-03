@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Web;
 using Newtonsoft.Json;
@@ -9,25 +10,21 @@ namespace ZenMu.ZenMuApp
 	{
 		private List<Player> _participants;
 		private List<Scene> _scenes;
-        public Game Game { get; set; }
+        private Game Game { get; set; }
+	    public Guid Id { get { return Game.Id; } }
 
 		public string Name { get; set; }
-
-		public GameSession()
-		{
-			_participants = new List<Player>();
-		}
 
 		public GameSession(Game game)
 		{
 			_participants = new List<Player>();
-			_scenes = new List<Scene>(){new Scene("Default")};
+			_scenes = new List<Scene> { new Scene("Default"), new Scene("OOC") };
 		    Game = game;
 		}
 
 		public bool AddPlayer(Player player)
 		{
-			if (Game.Players.Contains(HttpContext.Current.User.Identity.Name))
+			if (Game.Players.Contains(player.GetId()))
 			{
 				_participants.Add(player);
 				player.MessageRecieved += OnMessageRecieved;
