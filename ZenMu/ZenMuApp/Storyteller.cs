@@ -32,17 +32,33 @@ namespace ZenMu.ZenMuApp
         private void OnOpenConnection(IWebSocketConnection socket)
         {
             var authCookie = socket.ConnectionInfo.Cookies[FormsAuthentication.FormsCookieName];
-            
-            if (authCookie == null) 
+
+            Player player;
+
+            if (authCookie == null || !TryCreatePlayer(authCookie, socket, out player)) 
             { 
                 socket.Close();
                 return;
             }
 
-            var authTicket = FormsAuthentication.Decrypt(authCookie);
-            var identity = new ZenMuIdentity(authTicket.Name);
-            var principal = new ZenMuPrincipal(identity);
-            var player = new Player(socket, principal);
+            
+        }
+
+        private bool TryCreatePlayer(string authCookie, IWebSocketConnection socket, out Player result)
+        {
+            try
+            {
+                var authTicket = FormsAuthentication.Decrypt(authCookie);
+                var identity = new ZenMuIdentity(authTicket.Name);
+                var principal = new ZenMuPrincipal(identity);
+                result = new Player(socket, principal);
+            }
+            catch(Exception e)
+            {
+                result = null;
+                return false;
+            }
+            return true;
         }
 	}
 }
