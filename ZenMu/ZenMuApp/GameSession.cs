@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Web;
 using Newtonsoft.Json;
+using ZenMu.ZenMuApp.Messages;
 
 namespace ZenMu.ZenMuApp
 {
@@ -45,9 +46,15 @@ namespace ZenMu.ZenMuApp
 			_participants.Remove(player);
 		}
 
-		private void OnMessageRecieved(Player player, string message)
+        public void SendMessage(Message message)
+        {
+            var wireMessage = JsonConvert.SerializeObject(message);
+            _participants.ForEach(p => p.Send(wireMessage));
+        }
+
+		private void OnMessageRecieved(Player player, string wireMessage)
 		{
-			_participants.ForEach(p => p.Send(ProcessMessage(player, message)));
+			SendMessage(ProcessMessage(player, wireMessage));
 		}
 
 		private void OnNameChanged(Player player, string newName)
@@ -55,7 +62,7 @@ namespace ZenMu.ZenMuApp
 			
 		}
 
-		private string ProcessMessage(Player player, string input)
+		private Message ProcessMessage(Player player, string input)
 		{
 		    var message = JsonConvert.DeserializeObject<Message>(input);
             using (var db = MvcApplication.Store.OpenSession())
@@ -63,7 +70,8 @@ namespace ZenMu.ZenMuApp
                 db.Store(message);
                 db.SaveChanges();
             }
-			return input;
+            Message output = MessageFactory.
+		    return output;
 		}
 	}
 }
