@@ -54,9 +54,9 @@ namespace ZenMu.ZenMuApp
 			_participants.Remove(player);
 		}
 
-        public void SendMessage(Message message)
+        public void SendMessage(Command command)
         {
-            var wireMessage = JsonConvert.SerializeObject(message);
+            var wireMessage = JsonConvert.SerializeObject(command);
             _participants.ForEach(p => p.Send(wireMessage));
         }
 
@@ -70,15 +70,22 @@ namespace ZenMu.ZenMuApp
 			
 		}
 
-		private Message ProcessMessage(Player player, string input)
+		private Command ProcessMessage(Player player, string input)
 		{
-		    var message = JsonConvert.DeserializeObject<Message>(input);
+		    var message = JsonConvert.DeserializeObject<Command>(input);
+		    object output;
             using (var db = MvcApplication.Store.OpenSession())
             {
                 db.Store(message);
                 db.SaveChanges();
             }
-            Message output = MessageFactory.
+
+		    switch (message.CommandType)
+		    {
+		        case CommandType.Message:
+		            break;
+		    }
+            
 		    return output;
 		}
 	}

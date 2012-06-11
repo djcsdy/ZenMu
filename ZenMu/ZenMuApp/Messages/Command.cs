@@ -2,10 +2,10 @@
 
 namespace ZenMu.ZenMuApp.Messages
 {
-    public class Message
+    public class Command
     {
         public Guid Id { get; set; }
-        public MessageType MessageType { get; set; }
+        public CommandType CommandType { get; set; }
         public string Source { get; set; }
         public string[] Subjects { get; set; }
         public string Body { get; set; }

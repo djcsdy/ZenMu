@@ -1,6 +1,6 @@
 ﻿namespace ZenMu.ZenMuApp.Messages
 {
-    public enum MessageType
+    public enum CommandType
 	{
 		Message,
 		Emote,
@@ -13,6 +13,5 @@
         DiceRoll,
         DamageDiceRoll,
         TargetDiceRoll,
-        ErrorMessage
 	}
 }
