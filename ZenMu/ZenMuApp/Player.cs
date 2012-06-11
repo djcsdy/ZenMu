@@ -12,13 +12,14 @@ namespace ZenMu.ZenMuApp
 		private GameSession _game;
 		private string _characterName;
 		public bool IsStoryteller { get; private set; }
-        public IPrincipal Identity { get; private set; }
+        public IPrincipal Principal { get; private set; }
+        public Guid Id { get; private set; }
 
-        public Guid GetId()
+        public Player()
         {
             using (var db = MvcApplication.Store.OpenSession())
             {
-                return db.Query<ZenMuUser>().Single(u => u.Username == Identity.Identity.Name).Id;
+                Id = db.Query<ZenMuUser>().Single(u => u.Username == Principal.Identity.Name).Id;
             }
         }
 
@@ -34,7 +35,7 @@ namespace ZenMu.ZenMuApp
 
 		public Player(IWebSocketConnection socket, IPrincipal principal)
 		{
-		    Identity = principal;
+		    Principal = principal;
 			_socket = socket;
 			_socket.OnMessage = message => MessageRecieved(this, message);
 			_socket.OnClose += LeaveGame;

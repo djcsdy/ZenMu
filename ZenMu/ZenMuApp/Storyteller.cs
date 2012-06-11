@@ -20,6 +20,11 @@ namespace ZenMu.ZenMuApp
             }
 		}
 
+        public IEnumerable<Guid> GamesContainingPlayer(Guid playerId)
+        {
+            return _games.Where(g => g.GetPlayerIds().Contains(playerId)).Select(g => g.Id);
+        }
+
 		public void StartServer()
 		{
 			var server = new WebSocketServer("ws://localhost:25948");

@@ -12,13 +12,17 @@ namespace ZenMu.Controllers
     {
         //
         // GET: /Game/
-
+        [Authorize]
         public ActionResult Index()
         {
-            var viewModel = new GamesViewModel();
-            viewModel.OwnGames = RavenSession.Query<Game>().Where(u => u.Storyteller == HttpContext.User.Identity.Name).ToList();
-            viewModel.InGames = RavenSession.Query<Game>().Where(u => u.Players.Contains(HttpContext.User.Identity.Name)).ToList();
-            
+            var user = RavenSession.Query<ZenMuUser>().Single(u => u.Username == HttpContext.User.Identity.Name);
+
+            var inGames = RavenSession.Query<Game>().Where(g => g.Players.Contains(user.Id));
+            var ownedGames = RavenSession.Query<Game>().Where(g => g.Storyteller == user.Id);
+            var activeGames = MvcApplication.GameServer.GamesContainingPlayer(user.Id).ToList();
+
+            var viewModel = inGames.Concat(ownedGames).Select(game => new GameViewModel { Game = game, IsActive = activeGames.Contains(game.Id) }).ToList();
+
             return View(viewModel);
         }
 

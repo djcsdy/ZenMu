@@ -11,7 +11,7 @@ namespace ZenMu.ZenMuApp
     {
         public string Name;
         public Guid Id;
-        public string Storyteller { get; set; }
+        public Guid Storyteller { get; set; }
         public List<Guid> Players { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using System.Web;
@@ -33,6 +34,11 @@ namespace ZenMu.ZenMuApp
 			}
 			return false;
 		}
+
+        public IEnumerable<Guid> GetPlayerIds()
+        {
+            return _participants.Select(p => p.Id);
+        }
 
 		public void RemovePlayer(Player player)
 		{

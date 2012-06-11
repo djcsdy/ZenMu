@@ -97,7 +97,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Auth\ZenMuIdentity.cs" />
-    <Compile Include="Models\GamesViewModel.cs" />
+    <Compile Include="Models\GameViewModel.cs" />
     <Compile Include="Models\NewUserViewModel.cs" />
     <Compile Include="Models\ZenMuUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
