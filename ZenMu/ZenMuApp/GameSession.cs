@@ -24,9 +24,17 @@ namespace ZenMu.ZenMuApp
 		    Game = game;
 		}
 
+        public void EndSession()
+        {
+            foreach (Player player in _participants)
+            {
+                player.LeaveGame();
+            }
+        }
+
 		public bool AddPlayer(Player player)
 		{
-			if (Game.Players.Contains(player.GetId()))
+			if (Game.Players.Contains(player.Id))
 			{
 				_participants.Add(player);
 				player.MessageRecieved += OnMessageRecieved;

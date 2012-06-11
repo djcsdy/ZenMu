@@ -22,7 +22,7 @@ namespace ZenMu
 	public class MvcApplication : System.Web.HttpApplication
 	{
 		public static DocumentStore Store;
-	    public static Storyteller GameServer;
+	    public static Storyteller Storyteller;
 
 		public static void RegisterGlobalFilters(GlobalFilterCollection filters)
 		{
@@ -48,8 +48,8 @@ namespace ZenMu
 			RegisterGlobalFilters(GlobalFilters.Filters);
 			RegisterRoutes(RouteTable.Routes);
 
-		    GameServer = new Storyteller();
-            GameServer.StartServer();
+		    Storyteller = new Storyteller();
+            Storyteller.StartServer();
 
 			Store = new DocumentStore {ConnectionStringName = "RavenDB"};
 			Store.Initialize();

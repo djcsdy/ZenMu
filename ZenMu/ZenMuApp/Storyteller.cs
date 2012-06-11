@@ -20,6 +20,16 @@ namespace ZenMu.ZenMuApp
             }
 		}
 
+        public void EndGame(Guid gameId)
+        {
+            if (_games.Any(g => g.Id == gameId))
+            {
+                var theGame = _games.Single(g => g.Id == gameId);
+                theGame.EndSession();
+                _games.Remove(theGame);
+            }
+        }
+
         public IEnumerable<Guid> GamesContainingPlayer(Guid playerId)
         {
             return _games.Where(g => g.GetPlayerIds().Contains(playerId)).Select(g => g.Id);
@@ -27,7 +37,7 @@ namespace ZenMu.ZenMuApp
 
 		public void StartServer()
 		{
-			var server = new WebSocketServer("ws://localhost:25948");
+			var server = new WebSocketServer("ws://localhost:10000");
 			server.Start(ws =>
 			                 {
                                  ws.OnOpen = () => OnOpenConnection(ws); 
