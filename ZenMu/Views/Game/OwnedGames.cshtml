@@ -1,0 +1,19 @@
+﻿@model IEnumerable<ZenMu.ViewModels.GameViewModel>
+
+<h2>Owned Games</h2>
+<div class="game-list">
+@foreach (var game in Model)
+    {
+        <fieldset class="listed-game">
+            <legend>@game.GameName</legend>
+            <label for="in-session"></label><input type="checkbox" 
+                @if(game.HasSession) { 
+                    @:checked="checked" 
+                }  />
+            @foreach(var player in game.Players)
+            {
+                
+            }
+        </fieldset>
+    }
+</div>

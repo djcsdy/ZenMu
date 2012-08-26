@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace ZenMu.ZenMuApp.Messages
+namespace ZenMu.ZenMuApp.Events
 {
-    public class CommandFactory
+    public class TargetDiceRollEvent
     {
     }
 }

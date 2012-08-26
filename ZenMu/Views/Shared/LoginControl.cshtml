@@ -1,7 +1,10 @@
-﻿<div id="login-control">
-	@using (Html.BeginForm("Login", "Account", FormMethod.Post))
-	{
-		<input type="text" id="username" name="username" />
-        <input type="password" id="password" name="password" />
-	}
-</div>
+﻿@using (Html.BeginForm("LogOn", "Account", new {ReturnUrl = Request["ReturnUrl"]}, FormMethod.Post))
+{
+    <fieldset class="login">
+        <label for="username" class="login-label">Username</label>
+        <input type="text" id="username" name="username" class="login-input" /> <br/>
+        <label for="password" class="login-label">Password</label>
+        <input type="password" id="password" name="password" class="login-input" />
+        <button class="button" type="submit">Logon</button>
+    </fieldset>
+}

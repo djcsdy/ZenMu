@@ -1,9 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
-using ZenMu.Validations;
 using DataAnnotationsExtensions;
+using ZenMu.Validations;
 
-namespace ZenMu.Models
+namespace ZenMu.ViewModels
 {
     public class NewUserViewModel
     {

@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Web;
 using Newtonsoft.Json;
-using ZenMu.ZenMuApp.Messages;
+using ZenMu.ZenMuApp.Events;
 
 namespace ZenMu.ZenMuApp
 {
@@ -54,15 +54,15 @@ namespace ZenMu.ZenMuApp
 			_participants.Remove(player);
 		}
 
-        public void SendMessage(Command command)
+        public void SendMessage(EventWrapper wrappedEvent)
         {
-            var wireMessage = JsonConvert.SerializeObject(command);
+            var wireMessage = JsonConvert.SerializeObject(wrappedEvent);
             _participants.ForEach(p => p.Send(wireMessage));
         }
 
 		private void OnMessageRecieved(Player player, string wireMessage)
 		{
-			SendMessage(ProcessMessage(player, wireMessage));
+		    ProcessMessage(player, wireMessage);
 		}
 
 		private void OnNameChanged(Player player, string newName)
@@ -70,23 +70,31 @@ namespace ZenMu.ZenMuApp
 			
 		}
 
-		private Command ProcessMessage(Player player, string input)
+        public bool SceneIsActive(Guid sceneId)
+        {
+            return _scenes.Exists(s => s.Id == sceneId) && _scenes.Single(s => s.Id == sceneId).IsActive;
+        }
+
+		private void ProcessMessage(Player player, string input)
 		{
-		    var message = JsonConvert.DeserializeObject<Command>(input);
-		    object output;
+		    var receivedEvent = JsonConvert.DeserializeObject<EventWrapper>(input);
+
             using (var db = MvcApplication.Store.OpenSession())
             {
-                db.Store(message);
+                switch (receivedEvent.EventType)
+                {
+                    case EventType.Message:
+                        var message = JsonConvert.DeserializeObject<MessageEvent>(receivedEvent.EventBody);
+                        if (SceneIsActive(message.SceneId))
+                        {
+                            message.GameId = Game.Id;
+                            SendMessage(receivedEvent);
+                        }
+                        break;
+                }
+
                 db.SaveChanges();
             }
-
-		    switch (message.CommandType)
-		    {
-		        case CommandType.Message:
-		            break;
-		    }
-            
-		    return output;
 		}
 	}
 }

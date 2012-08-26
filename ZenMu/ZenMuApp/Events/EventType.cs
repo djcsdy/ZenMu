@@ -1,6 +1,6 @@
-﻿namespace ZenMu.ZenMuApp.Messages
+﻿namespace ZenMu.ZenMuApp.Events
 {
-    public enum CommandType
+    public enum EventType
 	{
 		Message,
 		Emote,
@@ -9,8 +9,9 @@
         NewCharacter,
         NameChange, 
         NewScene,
-        RemoveScene,
+        EndScene,
         DiceRoll,
+        ExaltedDiceRoll,
         DamageDiceRoll,
         TargetDiceRoll,
 	}

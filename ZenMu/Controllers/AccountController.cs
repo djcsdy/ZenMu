@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using ZenMu.Models;
 using ZenMu.Utilities;
+using ZenMu.ViewModels;
 
 
 namespace ZenMu.Controllers

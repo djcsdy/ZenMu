@@ -3,6 +3,7 @@ using System.Linq;
 using System.Security.Principal;
 using Fleck;
 using ZenMu.Models;
+using ZenMu.ViewModels;
 
 namespace ZenMu.ZenMuApp
 {

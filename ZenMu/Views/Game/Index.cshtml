@@ -1,42 +1,10 @@
-﻿@model List<ZenMu.Models.GameViewModel>
+﻿@model List<ZenMu.ViewModels.GameViewModel>
 
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>New Game</h2>
-@using (Html.BeginForm("New", "Game", FormMethod.Post))
-{
-    <input id="name" name="name"/>
-}
+@Html.Partial("NewGame")
 
-<h2>Your Games</h2>
-@foreach (var g in Model.OwnGames)
-{
-    <div class="game">
-        <h3>@g.Name</h3>
-        <div>
-            <h4>Players</h4>
-            @foreach(var p in g.Players)
-            {
-                @p <br/>
-            }
-        </div>
-    </div>
-}
-
-<h2>In Games</h2>
-@foreach (var g in Model.InGames)
-{
-    <div class="game">
-        <h3>@g.Name</h3>
-        <div>
-            <h4>Players</h4>
-            @foreach(var p in g.Players)
-            {
-                @p <br/>
-            }
-        </div>
-    </div>
-}
+@Html.Partial("OwnedGames")
 

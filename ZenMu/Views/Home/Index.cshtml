@@ -1,19 +1,5 @@
 ﻿@{
     ViewBag.Title = "Index";
 }
-<script type="text/javascript">
-    var openConnection = function () {
-        console.log('opening connection');
-        wsocket = new WebSocket('ws://localhost:25948');
-        wsocket.onmessage = function (event) {
-            console.log(event);
-            $('#output').append(event.data + '<br />');
-        };
-        console.log('opened connection');
-    }
-
-</script>
-
 <h2>Index</h2>
 
-<h3>Hello, @(User.Identity.Name ?? "World!")</h3>

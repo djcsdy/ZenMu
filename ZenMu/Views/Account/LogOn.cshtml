@@ -4,9 +4,5 @@
 
 <h2>LogOn</h2>
 <div>
-    @using (Html.BeginForm("LogOn", "Account", FormMethod.Post))
-    {
-        <input type="text" name="username" id="username"/> <br/>
-        <input type="password" name="password" id="password"/>
-    }
+@Html.Partial("LoginControl")
 </div>

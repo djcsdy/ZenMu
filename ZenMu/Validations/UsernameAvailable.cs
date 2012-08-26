@@ -2,6 +2,7 @@
 using System.Linq;
 using System.ComponentModel.DataAnnotations;
 using ZenMu.Models;
+using ZenMu.ViewModels;
 
 namespace ZenMu.Validations
 {

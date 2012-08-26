@@ -1,4 +1,6 @@
-﻿namespace ZenMu.Auth
+﻿using System;
+
+namespace ZenMu.Auth
 {
 	public class ZenMuIdentity : System.Security.Principal.IIdentity
 	{
@@ -8,6 +10,8 @@
         }
 
         public string Name { get; private set; }
+
+        public Guid Id { get; private set; }
 
 	    public string AuthenticationType
 	    {
