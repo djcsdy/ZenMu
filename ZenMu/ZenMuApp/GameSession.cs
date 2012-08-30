@@ -13,14 +13,16 @@ namespace ZenMu.ZenMuApp
 		private List<Player> _participants;
 		private List<Scene> _scenes;
         private Game Game { get; set; }
-	    public Guid Id { get { return Game.Id; } }
+		public Guid Id { get; private set; }
 
-		public string Name { get; set; }
+		public string Name { get; private set; }
 
 		public GameSession(Game game)
 		{
 			_participants = new List<Player>();
 			_scenes = new List<Scene> { new Scene("Default"), new Scene("OOC") };
+			Id = game.Id;
+			Name = game.Name;
 		    Game = game;
 		}
 
@@ -44,10 +46,15 @@ namespace ZenMu.ZenMuApp
 			return false;
 		}
 
-        public IEnumerable<Guid> GetPlayerIds()
+        public IEnumerable<Guid> GetActivePlayerIds()
         {
             return _participants.Select(p => p.Id);
         }
+
+		public IEnumerable<Guid> GetPlayerIds()
+		{
+			return Game.Players;
+		}
 
 		public void RemovePlayer(Player player)
 		{

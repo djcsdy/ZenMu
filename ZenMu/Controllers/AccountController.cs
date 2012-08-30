@@ -16,6 +16,7 @@ namespace ZenMu.Controllers
         //
         // GET: /Account/
 
+		[Authorize]
         public ActionResult Index()
         {
             ViewBag.Users = RavenSession.Query<ZenMuUser>();

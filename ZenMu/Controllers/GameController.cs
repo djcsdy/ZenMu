@@ -19,22 +19,15 @@ namespace ZenMu.Controllers
         public ActionResult Index()
         {
             var user = RavenSession.Query<ZenMuUser>().Single(u => u.Username == HttpContext.User.Identity.Name);
-
-            //var inGames = RavenSession.Query<Game>().ToList().Where(g => g.Players.Exists(p => p == user.Id));
-            var ownedGames = RavenSession.Query<Game>().Where(g => g.Storyteller == user.Id).ToList();
-            var activeGames = MvcApplication.Storyteller.GamesContainingPlayer(user.Id).ToList();
-
-            var viewModel = ownedGames.Select(game => new GameViewModel
-                                                                          {
-                                                                              GameName = game.Name, 
-                                                                              GameId = game.Id,
-                                                                              StorytellerId = game.Storyteller,
-                                                                              HasSession = activeGames.Contains(game.Id),
-                                                                              Players = new Dictionary<Guid, string>()
-                                                                          }).ToList();
-
-            return View(viewModel);
+			
+			return View(GetOwnedGamesForPlayerId(user.Id));
         }
+
+		[Authorize]
+		public ActionResult Play(string id)
+		{
+			return View();
+		}
 
         [HttpPost]
         [Authorize]
@@ -50,35 +43,49 @@ namespace ZenMu.Controllers
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
-        public JsonResult StartSession(Guid gameId)
+        public PartialViewResult StartSession(Guid gameId)
         {
             var user = RavenSession.Query<ZenMuUser>().Single(u => u.Username == HttpContext.User.Identity.Name);
             if (IsPlayerStoryteller(user.Id, gameId))
             {
                 MvcApplication.Storyteller.CreateGame(gameId);
-                return Json(new { Success = true });
             }
-            return Json(new { Success = false, ErrorMessage = "Authentication Error" });
+			return PartialView("OwnedGames", GetOwnedGamesForPlayerId(user.Id));
         }
 
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
-        public JsonResult EndSession(Guid gameId)
+        public PartialViewResult EndSession(Guid gameId)
         {
             var user = RavenSession.Query<ZenMuUser>().Single(u => u.Username == HttpContext.User.Identity.Name);
             if (IsPlayerStoryteller(user.Id, gameId))
             {
                 MvcApplication.Storyteller.EndGame(gameId);
-                return Json(new {Success = true});
             }
-            return Json(new {Success = false, ErrorMessage = "Authentication Error"});
+        	return PartialView("OwnedGames", GetOwnedGamesForPlayerId(user.Id));
         }
 
         private bool IsPlayerStoryteller(Guid playerId, Guid gameId)
         {
             return RavenSession.Query<Game>().Single(g => g.Id == gameId).Storyteller == playerId;
         }
+
+		private List<GameViewModel> GetOwnedGamesForPlayerId(Guid id)
+		{
+			var ownedGames = RavenSession.Query<Game>().Where(g => g.Storyteller == id).ToList();
+			var activeGames = MvcApplication.Storyteller.GamesContainingPlayer(id).ToList();
+
+			return ownedGames.Select(game => new GameViewModel
+				{
+					GameName = game.Name,
+					GameId = game.Id,
+					StorytellerId = game.Storyteller,
+					HasSession = activeGames.Contains(game.Id),
+					Players = new Dictionary<Guid, string>()
+				}).ToList();
+			
+		}
 
     }
 }
