@@ -2,4 +2,11 @@
     @Html.ActionLink("Home", "Index", "Home", null, new { @class = "button" })
     @Html.ActionLink("Games","Index","Game", null, new {@class="button"})
     @Html.ActionLink("Account","Index","Account" ,null, new {@class="button"})
+    @if((HttpContext.Current.User.Identity.AuthenticationType != String.Empty))
+    {
+        <span class="right">
+            <span class="zenmu-text">Hello, @HttpContext.Current.User.Identity.Name</span>
+            @Html.ActionLink("Logout", "Logout", "Account", null, new { @class = "button" })
+        </span>
+    }
 </menu>

@@ -27,6 +27,7 @@ namespace ZenMu.Controllers
             var viewModel = ownedGames.Select(game => new GameViewModel
                                                                           {
                                                                               GameName = game.Name, 
+                                                                              GameId = game.Id,
                                                                               StorytellerId = game.Storyteller,
                                                                               HasSession = activeGames.Contains(game.Id),
                                                                               Players = new Dictionary<Guid, string>()
@@ -37,6 +38,7 @@ namespace ZenMu.Controllers
 
         [HttpPost]
         [Authorize]
+        [ValidateAntiForgeryToken]
         public ActionResult New(string name)
         {
             Guid userId = RavenSession.Query<ZenMuUser>().Single(u => u.Username == HttpContext.User.Identity.Name).Id;
@@ -47,6 +49,7 @@ namespace ZenMu.Controllers
         
         [HttpPost]
         [Authorize]
+        [ValidateAntiForgeryToken]
         public JsonResult StartSession(Guid gameId)
         {
             var user = RavenSession.Query<ZenMuUser>().Single(u => u.Username == HttpContext.User.Identity.Name);
@@ -60,6 +63,7 @@ namespace ZenMu.Controllers
 
         [HttpPost]
         [Authorize]
+        [ValidateAntiForgeryToken]
         public JsonResult EndSession(Guid gameId)
         {
             var user = RavenSession.Query<ZenMuUser>().Single(u => u.Username == HttpContext.User.Identity.Name);

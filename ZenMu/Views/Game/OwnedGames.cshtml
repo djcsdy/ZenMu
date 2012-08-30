@@ -1,18 +1,36 @@
 ﻿@model IEnumerable<ZenMu.ViewModels.GameViewModel>
 
-<h2>Owned Games</h2>
+<h2>Your Games</h2>
 <div class="game-list">
 @foreach (var game in Model)
     {
         <fieldset class="listed-game">
             <legend>@game.GameName</legend>
-            <label for="in-session"></label><input type="checkbox" 
-                @if(game.HasSession) { 
-                    @:checked="checked" 
-                }  />
-            @foreach(var player in game.Players)
+            @if (game.HasSession)
             {
-                
+                using(Ajax.BeginForm("EndSession","Game", new AjaxOptions {HttpMethod = "Post"} ))
+                {
+                    <label for="active" class="login-label">Status</label>
+                    <input name="active" readonly="readonly" type="text" value="Online" class="readonly game-status"  />
+                    <input type="hidden" id="gameId" name="gameId" value="@game.GameId"/>
+                    <button class="button red">Take Offline</button>
+                    @Html.AntiForgeryToken()
+                }
+            }
+            else
+            {
+                using (Ajax.BeginForm("StartSession", "Game", new AjaxOptions { HttpMethod = "Post" }))
+                {
+                    <label for="active" class="login-label">Status</label>
+                    <input name="active" readonly="readonly" type="text" value="Offline" class="readonly game-status" />
+                    <input type="hidden" id="gameId" name="gameId" value="@game.GameId"/>
+                    <button class="button green">Bring Online</button>
+                    @Html.AntiForgeryToken()
+                }
+            }
+            @foreach (var player in game.Players)
+            {
+                <button class="button" value="@player.Key">@player.Value</button>
             }
         </fieldset>
     }

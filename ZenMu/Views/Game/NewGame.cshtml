@@ -1,6 +1,8 @@
-﻿<h2>New Game</h2>
+﻿<h2>Create Game</h2>
 @using (Html.BeginForm("New", "Game", FormMethod.Post))
 {
+    @Html.AntiForgeryToken()
+    <label for="name" class="login-label">Name</label>
     <input id="name" name="name"/>
-    <input type="submit" class="button" value="Create Game"/>
+    <input type="submit" class="button green" value="Create Game"/>
 }

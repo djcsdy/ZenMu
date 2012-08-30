@@ -101,7 +101,13 @@ input:focus{
     background-color: #0D872B;
 }
 
+.readonly {
+    cursor: none;
+}
 
+.readonly:focus {
+    box-shadow: none;
+}
 
 /* Styles for validation helpers
 -----------------------------------------------------------*/
@@ -157,5 +163,27 @@ input:focus{
 .login-input {
     margin: 0 0 1em 0;
     width: 8.6em;
+}
+
+.game-status {
+    text-align: center;
+    width: 4em;
+}
+
+.zenmu-text {
+    font-family: "Segoe UI";
+    font-size: 1.2em;
+}
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right
+}
+
+.clear {
+    clear: both;
 }
 
