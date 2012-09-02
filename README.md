@@ -6,20 +6,24 @@ There will be handy things like a dicebot built in, no idea yet about anything e
 
 It's probably going to look and behave a bit like IRC, because that just so happens to be what I'm used to and the frustrations at the limitations of IRC for this is where the desire to write Zen-Mu grew from.
 
-License
+## License
 
 Copyright (c) 2012, ProfessionalNihilist
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:
-    * Redistributions of source code must retain the above copyright
-      notice, this list of conditions and the following disclaimer.
-    * Redistributions in binary form must reproduce the above copyright
-      notice, this list of conditions and the following disclaimer in the
-      documentation and/or other materials provided with the distribution.
-    * The names of its contributors may not be used to endorse or promote products
-      derived from this software without specific prior written permission.
+
+*   Redistributions of source code must retain the above copyright notice,
+    this list of conditions and the following disclaimer.
+    
+*   Redistributions in binary form must reproduce the above copyright notice,
+    this list of conditions and the following disclaimer in the documentation
+    and/or other materials provided with the distribution.
+    
+*   The names of its contributors may not be used to endorse or promote
+    products derived from this software without specific prior written
+    permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
