@@ -1,10 +1,15 @@
-#Zen-Mu#
+# Zen-Mu
 
-Zen-Mu will be a tool for running games of [Exalted](http://en.wikipedia.org/wiki/Exalted) through the browser using realtime chat via WebSockets.   
+Zen-Mu will be a tool for running games of [Exalted][1] through the browser
+using realtime chat via WebSockets.   
 
-There will be handy things like a dicebot built in, no idea yet about anything else. 
+There will be handy things like a dicebot built in, no idea yet about anything
+else. 
 
-It's probably going to look and behave a bit like IRC, because that just so happens to be what I'm used to and the frustrations at the limitations of IRC for this is where the desire to write Zen-Mu grew from.
+It's probably going to look and behave a bit like IRC, because that just so
+happens to be what I'm used to and the frustrations at the limitations of IRC
+for this is where the desire to write Zen-Mu grew from.
+
 
 ## License
 
@@ -34,3 +39,6 @@ LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
 ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+
+[1]: http://en.wikipedia.org/wiki/Exalted
