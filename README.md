@@ -6,8 +6,8 @@ using realtime chat via WebSockets.
 There will be handy things like a dicebot built in, no idea yet about anything
 else. 
 
-It's probably going to look and behave a bit like IRC, because that just so
-happens to be what I'm used to and the frustrations at the limitations of IRC
+It’s probably going to look and behave a bit like IRC, because that just so
+happens to be what I’m used to and the frustrations at the limitations of IRC
 for this is where the desire to write Zen-Mu grew from.
 
 
@@ -29,7 +29,7 @@ modification, are permitted provided that the following conditions are met:
     products derived from this software without specific prior written
     permission.
 
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
 WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
 DISCLAIMED. IN NO EVENT SHALL <COPYRIGHT HOLDER> BE LIABLE FOR ANY
