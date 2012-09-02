@@ -8,8 +8,7 @@ It's probably going to look and behave a bit like IRC, because that just so happ
 
 ## License
 
-Copyright © 2012, ProfessionalNihilist
-All rights reserved.
+Copyright © 2012, ProfessionalNihilist.
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:
